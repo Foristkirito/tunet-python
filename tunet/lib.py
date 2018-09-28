@@ -90,7 +90,7 @@ def get(url, data, callback, dataType):
         data['callback'] = 'callback'
         _data = parse.urlencode(data)
         req = request.Request(url + '?' + _data if _data else url)
-        res = request.urlopen(req, timeout=5)  # TODO: hardcode
+        res = request.urlopen(req, timeout=50)  # TODO: hardcode
         assert 200 == res.getcode()
         page = res.read().decode('utf-8').strip()
         assert page.startswith(data['callback'] + '({') and page.endswith('})')
@@ -103,7 +103,7 @@ def get(url, data, callback, dataType):
         data = copy.deepcopy(data)
         data = parse.urlencode(data)
         req = request.Request(url + '?' + data if data else url)
-        res = request.urlopen(req, timeout=5)
+        res = request.urlopen(req, timeout=50)
         assert 200 == res.getcode()
         page = res.read().decode('utf-8')
         if callback:
